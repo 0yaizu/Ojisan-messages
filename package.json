@@ -1,6 +1,5 @@
 {
   "name": "ojisan-messages",
-  "module": "index.ts",
   "type": "module",
   "private": true,
 	"workspaces": [
