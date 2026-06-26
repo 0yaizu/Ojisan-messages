@@ -9,7 +9,9 @@
 	],
 	"scripts": {
 		"dev": "turbo dev",
-		"build": "turbo build"
+		"build": "turbo build",
+		"lint": "turbo lint",
+		"check-types": "turbo check-types"
 	},
   "devDependencies": {
     "@types/bun": "latest",
