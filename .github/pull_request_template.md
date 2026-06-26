@@ -13,26 +13,27 @@
 - [ ] 🐛 バグ修正 (Bug fix)
 - [ ] ♻️ リファクタリング (Refactoring)
 - [ ] 🗄️ DB・スキーマ変更 (Database)
-- [ ] 🤖 AI・タグ付けロジック (ML/AI)
+- [ ] 🤖 AI・メッセージ生成ロジック (Gemini)
 - [ ] 🎨 UI変更 (Frontend)
 - [ ] 🔧 設定・インフラ (Chore/Infra)
 - [ ] 📝 ドキュメント (Docs)
 
 ## 影響範囲
 <!-- 該当するものにチェック -->
-- [ ] `apps/web` (Next.js フロントエンド)
+- [ ] `apps/web` (React + Vite フロントエンド)
 - [ ] `apps/api` (Hono バックエンド)
-- [ ] `packages/db` (Drizzle スキーマ)
-- [ ] インフラ・設定 (R2, Neon 等)
+- [ ] DB スキーマ (Drizzle ORM)
+- [ ] 設定・環境変数 (DATABASE_URL, GEMINI_API_KEY 等)
 
 ## DBマイグレーション
 - [ ] スキーマ変更なし
 - [ ] マイグレーションファイルを追加済み (`bun db:migrate`)
 
 ## 動作確認
-- [ ] ミームのアップロードができる
-- [ ] タグ付け機能が機能している
-- [ ] ミームの一覧が取得できている
+- [ ] APIが正常に起動する (`bun dev`)
+- [ ] フロントエンドが正常に表示される
+- [ ] おじさんメッセージが生成・取得できる
+- [ ] Gemini API との連携が正常に動作する
 
 ## スクリーンショット（UI変更がある場合）
 | Before | After |
