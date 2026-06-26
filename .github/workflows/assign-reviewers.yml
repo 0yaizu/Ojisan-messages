@@ -1,0 +1,35 @@
+name: Assign Random Reviewers
+
+on:
+  pull_request:
+    types: [opened, ready_for_review]
+
+jobs:
+  assign-reviewers:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Assign 3 random reviewers
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const candidates = [
+              'ARU-TIMA',
+              'komazakisota',
+              'Nishiyama1204',
+              's2422101',
+              'Sakauchikanato',
+              'Ukyo0608',
+            ].filter(u => u !== context.payload.pull_request.user.login);
+
+            const shuffled = candidates.sort(() => Math.random() - 0.5);
+            const reviewers = shuffled.slice(0, 3);
+
+            await github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              reviewers,
+            });
