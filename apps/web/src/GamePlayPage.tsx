@@ -1,28 +1,16 @@
 import { useState } from "react"
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd"
 import type { DropResult } from "@hello-pangea/dnd"
+import { useCards } from "./hooks/useCards"
 import "./GamePlayPage.css"
 
 // 型定義から未使用の category フィールドを削除
-type OjiCard = {
-  id: number;
-  phrase: string;
-};
-
 type GamePlayPageProps = {
   onBackToHome: () => void;
 };
 
 // 📋 フロント用の固定カードデータ（category フィールドを整理）
-const wordCards: OjiCard[] = [
-  { id: 1, phrase: "ちゃんと寝れたカナ？" },
-  { id: 2, phrase: "心配です😅" },
-  { id: 3, phrase: "今何シテル の〜？" },
-  { id: 4, phrase: "お仕事お疲れ様😌" },
-  { id: 5, phrase: "ご飯でもどう？🍴" },
-]
-
-const baseCards: OjiCard[] = [
+const baseCards: { id: number; phrase: string }[] = [
   { id: 101, phrase: "今日" },
   { id: 102, phrase: "昨日" },
   { id: 103, phrase: "こんにちは" },
@@ -34,6 +22,7 @@ const baseCards: OjiCard[] = [
 const MAX_CARD_COUNT = 15;
 
 export default function GamePlayPage({ onBackToHome }: GamePlayPageProps) {
+  const { wordCards, isLoading } = useCards()
   const [selectedCards, setSelectedCards] = useState<{ id: string; text: string }[]>([])
 
   // 関数形式の updater を使用し、最大件数のガード処理を追加
@@ -160,16 +149,20 @@ export default function GamePlayPage({ onBackToHome }: GamePlayPageProps) {
 
           <div className="keyboard-row-label">⚙️ 基本カード（固定）</div>
           <div className="card-deck">
-            {baseCards.map(card => (
-              <button 
-                key={card.id} 
-                className="oji-deck-card base-card" 
-                onClick={() => handleCardClick(card.phrase)}
-                disabled={isMaxReached}
-              >
-                {card.phrase}
-              </button>
-            ))}
+            {isLoading ? (
+              <p>読み込み中...</p>
+            ) : (
+              baseCards.map(card => (
+                <button 
+                  key={card.id} 
+                  className="oji-deck-card base-card" 
+                  onClick={() => handleCardClick(card.phrase)}
+                  disabled={isMaxReached}
+                >
+                  {card.phrase}
+                </button>
+              ))
+            )}
           </div>
         </div>
       </div>
