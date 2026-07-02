@@ -9,17 +9,21 @@ export function useCards() {
   useEffect(() => {
     const fetchCards = async () => {
       try {
-        // APIできたらこっちに切り替える
-        // const res = await fetch("/get-cards");
-        // const data: OjiCard[] = await res.json();
+        const res = await fetch("http://localhost:3000/random?count=5");
 
-        // ダミーデータ
-        await new Promise((r) => setTimeout(r, 500));
-        const data: OjiCard[] = [
-          { id: 1, phrase: "ちゃんと寝れたカナ？" },
-          { id: 2, phrase: "心配です😅" },
-          { id: 3, phrase: "今何シテル の〜？" },
-        ];
+        if (!res.ok) {
+          throw new Error("単語の取得に失敗しました");
+        }
+
+        const json = await res.json();
+
+        const data: OjiCard[] = json.words.map(
+          (word: { id: number; content: string }) => ({
+            id: word.id,
+            phrase: word.content,
+          })
+        );
+
         setWordCards(data);
       } catch (e) {
         setError(e instanceof Error ? e.message : "不明なエラー");
@@ -27,6 +31,7 @@ export function useCards() {
         setIsLoading(false);
       }
     };
+
     fetchCards();
   }, []);
 
