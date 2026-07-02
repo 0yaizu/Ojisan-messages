@@ -1,0 +1,246 @@
+/* ==========================================================================
+   1. 画面全体の中央配置ラッパー
+   ========================================================================== */
+.oji-game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+/* ==========================================================================
+   2. LINE風 スマホ端末コンテナ
+   ========================================================================== */
+.line-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #7494c0; /* LINE風のトーク背景ブルー */
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 540px;
+  height: 780px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* PCなどの大画面で見るときは少し広げて操作しやすく調整 */
+@media (min-width: 768px) {
+  .line-container {
+    max-width: 800px;
+    height: 85vh;
+  }
+}
+
+/* ==========================================================================
+   3. ヘッダーバー（上部）
+   ========================================================================== */
+.line-header {
+  background-color: #243444;
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.avatar {
+  width: 42px;
+  height: 42px;
+  background-color: #6b7280;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.user-text {
+  display: flex;
+  flex-direction: column;
+}
+.user-name {
+  font-weight: bold;
+  font-size: 1rem;
+}
+.user-status {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   4. トーク履歴エリア（メインプレビュー）
+   ========================================================================== */
+.line-content {
+  flex: 1;
+  padding: 24px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.guide-text {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  margin-top: 40px;
+  font-weight: bold;
+}
+.message-list {
+  display: flex;
+  flex-direction: column;
+}
+.message-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.mini-avatar {
+  width: 32px;
+  height: 32px;
+  background-color: #4b5563;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* 🟢 ドラッグ＆ドロップ対応のトーク吹き出し本体 */
+.bubble-preview-draggable {
+  background-color: #85e249; /* LINEの受信メッセージ用グリーン */
+  color: black;
+  padding: 12px 14px;
+  border-radius: 18px;
+  border-top-left-radius: 2px; /* 吹き出しの尖りを表現 */
+  max-width: 88%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* 🔲 吹き出しの中で移動する単語バッジ（掴めるデザイン） */
+.phrase-badge-draggable {
+  background-color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: grab; /* 掴める形状のカーソル */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  user-select: none;
+  border: 1px solid #e2e8f0;
+  transition: background-color 0.1s;
+}
+.phrase-badge-draggable:active {
+  cursor: grabbing; /* 掴んでいる最中のカーソル */
+  background-color: #f8fafc;
+}
+
+/* ==========================================================================
+   5. 入力・送信バー（中央）
+   ========================================================================== */
+.line-footer {
+  background-color: white;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+.input-placeholder-text {
+  flex: 1;
+  background-color: #f1f5f9;
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: #1e293b;
+  font-size: 0.95rem;
+  text-align: left;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  word-break: break-all;
+}
+.btn-backspace {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+.btn-backspace:hover {
+  color: #475569;
+}
+
+/* ==========================================================================
+   6. 手元キーボード・カード選択セクション（下部）
+   ========================================================================== */
+.keyboard-section {
+  background-color: #f8fafc;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.keyboard-row-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  text-align: left;
+  padding-left: 2px;
+}
+.card-deck {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+/* 🔘 汎用パーツボタンの共通スタイル */
+.oji-deck-card {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  transition: all 0.1s ease;
+}
+.oji-deck-card:active {
+  transform: scale(0.95); /* タップした時に凹むエフェクト */
+}
+
+/* 📋 単語カード（白ベース） */
+.word-card {
+  background-color: #ffffff;
+  color: #1e293b;
+  border: 1px solid #e2e8f0;
+}
+.word-card:hover {
+  background-color: #f1f5f9;
+}
+
+/* ⚙️ 固定の基本構造カード（青ベース） */
+.base-card {
+  background-color: #3b82f6;
+  color: white;
+}
+.base-card:hover {
+  background-color: #2563eb;
+}

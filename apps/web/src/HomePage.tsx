@@ -1,3 +1,5 @@
+import { useState } from "react"
+import GamePlayPage from "./GamePlayPage" // 👈 ゲーム画面をインポート
 import "./HomePage.css"
 
 type HomePageProps = {
@@ -5,15 +7,28 @@ type HomePageProps = {
 };
 
 export default function HomePage({ onStartGame }: HomePageProps) {
+  // 💡 HomePage 自体の中で、ゲーム画面に切り替えるための State を用意
+  const [isGameStarted, setIsGameStarted] = useState(false)
+
+  // 💡 ボタンが押されたら、このコンポーネント内でフラグを true にする
+  const handleLocalStart = () => {
+    setIsGameStarted(true)
+    // もし親（App.tsx）側にも通知したければ残し、不要なら下の1行は消してもOKです
+    onStartGame() 
+  }
+
+  // 💡 フラグが true になったら、HomePage の中身ではなく GamePlayPage を直接レンダリングして返す
+  if (isGameStarted) {
+    return <GamePlayPage onBackToHome={() => setIsGameStarted(false)} />
+  }
+
   return (
     <div className="home-card oji-title-screen">
-      {/* メインタイトル */}
       <h1 className="home-title">
-        <span className="title-sub">最高のおじさん構文を作れ！</span>
         おじさん構文バトル
+        <span className="title-edition">（入力＆編集編）</span>
       </h1>
 
-      {/* LINEの吹き出し風ルール説明 */}
       <div className="oji-bubble-container">
         <div className="oji-speech-bubble">
           <p className="home-description">
@@ -23,9 +38,9 @@ export default function HomePage({ onStartGame }: HomePageProps) {
         </div>
       </div>
 
-      {/* ボタンエリア */}
+      {/* 🛠️ ボタンの onClick を新しく作った handleLocalStart に書き換え */}
       <div className="action-area">
-        <button className="btn btn-green btn-lg btn-pulse" onClick={onStartGame}>
+        <button className="btn btn-green btn-lg btn-pulse" onClick={handleLocalStart}>
           ゲームを始める ✉️
         </button>
       </div>
