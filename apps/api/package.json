@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "bun run --hot src/index.ts",
     "lint": "eslint src",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "bun run src/db/seed.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
